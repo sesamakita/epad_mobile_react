@@ -1,39 +1,36 @@
 {
-  "name": "e-pad",
+  "name": "epad-web",
+  "private": true,
   "version": "1.0.0",
-  "main": "expo-router/entry",
+  "type": "module",
   "scripts": {
-    "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
-    "web": "expo start --web"
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
   },
   "dependencies": {
-    "@expo-google-fonts/nunito": "^0.4.2",
-    "@expo/metro-runtime": "~6.1.2",
-    "@expo/vector-icons": "^15.0.3",
-    "@tanstack/react-query": "^5.100.7",
-    "babel-preset-expo": "~54.0.10",
-    "expo": "~54.0.33",
-    "expo-camera": "~17.0.10",
-    "expo-constants": "~18.0.13",
-    "expo-font": "~14.0.11",
-    "expo-linking": "~8.0.12",
-    "expo-location": "~19.0.8",
-    "expo-router": "~6.0.23",
-    "expo-secure-store": "~15.0.8",
-    "expo-splash-screen": "~31.0.13",
-    "expo-status-bar": "~3.0.9",
-    "react": "19.1.0",
-    "react-dom": "19.1.0",
-    "react-native": "0.81.5",
-    "react-native-gesture-handler": "~2.28.0",
-    "react-native-reanimated": "~4.1.1",
-    "react-native-safe-area-context": "~5.6.0",
-    "react-native-screens": "~4.16.0",
-    "react-native-svg": "15.12.1",
-    "react-native-web": "^0.21.0",
-    "zustand": "^5.0.12"
+    "@tailwindcss/postcss": "^4.2.4",
+    "axios": "^1.6.7",
+    "framer-motion": "^11.0.8",
+    "lucide-react": "^0.344.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.22.2",
+    "zustand": "^4.5.1"
   },
-  "private": true
+  "devDependencies": {
+    "@types/react": "^18.2.56",
+    "@types/react-dom": "^18.2.19",
+    "@vitejs/plugin-react": "^4.2.1",
+    "autoprefixer": "^10.5.0",
+    "eslint": "^8.56.0",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.5",
+    "gh-pages": "^6.1.1",
+    "postcss": "^8.5.13",
+    "tailwindcss": "^4.2.4",
+    "vite": "^5.1.4"
+  }
 }

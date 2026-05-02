@@ -3,6 +3,7 @@
     "name": "e-PAD",
     "slug": "e-pad",
     "version": "1.0.0",
+    "baseUrl": "/epad_mobile_react",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -26,7 +27,11 @@
     },
     "web": {
       "favicon": "./assets/favicon.png",
-      "bundler": "metro"
+      "bundler": "metro",
+      "output": "static"
+    },
+    "router": {
+      "origin": false
     },
     "plugins": [
       "expo-router",
