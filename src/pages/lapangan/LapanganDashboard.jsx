@@ -3,6 +3,7 @@ import MobileLayout from '../../components/MobileLayout';
 import { ClipboardList, MapPin, History, User, Search, Map, Bell, ArrowRight, Zap } from 'lucide-react';
 import { motion } from 'framer-motion';
 import LapanganPendataan from './LapanganPendataan';
+import LapanganMap from './LapanganMap';
 import { useAuthStore } from '../../store/authStore';
 
 const LapanganDashboard = () => {
@@ -80,6 +81,8 @@ const LapanganDashboard = () => {
         );
       case 'data':
         return <LapanganPendataan />;
+      case 'map':
+        return <LapanganMap />;
       default:
         return (
           <div className="flex flex-col items-center justify-center py-20 px-6 text-center">
