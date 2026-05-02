@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { useAuthStore } from '../store/authStore';
 import { mockUsers } from '../data/mockData';
-import { Lock, Mail, ShieldCheck, ArrowRight } from 'lucide-react';
+import { Lock, Mail, ShieldCheck, ArrowRight, Eye, EyeOff } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const Login = () => {
   const login = useAuthStore((state) => state.login);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
 
   const handleLogin = (e) => {
@@ -82,13 +83,20 @@ const Login = () => {
                 <Lock size={20} />
               </div>
               <input
-                type="password"
+                type={showPassword ? "text" : "password"}
                 placeholder="••••••••"
-                className="w-full pl-12 pr-5 py-4 bg-white/50 border border-slate-200 rounded-2xl text-sm font-bold outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all placeholder:text-slate-300"
+                className="w-full pl-12 pr-12 py-4 bg-white/50 border border-slate-200 rounded-2xl text-sm font-bold outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all placeholder:text-slate-300"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-blue-600 transition-colors"
+              >
+                {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+              </button>
             </div>
           </div>
 
