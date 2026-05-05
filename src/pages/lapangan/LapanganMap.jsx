@@ -35,25 +35,22 @@ const LapanganMap = () => {
 
       {/* Map Container */}
       <div className="flex-1 relative rounded-[40px] overflow-hidden border-4 border-white shadow-2xl bg-slate-200 min-h-[400px]">
-        {/* Wrapper to clip native OSM controls on the right */}
-        <div className="absolute inset-0 overflow-hidden pr-[50px] bg-slate-100">
-          <iframe 
-            key={zoomDelta}
-            title="Bandung Tax Map"
-            width="120%" 
-            height="100%" 
-            frameBorder="0" 
-            scrolling="no" 
-            marginHeight="0" 
-            marginWidth="0" 
-            src={bandungMapUrl}
-            style={{ 
-              filter: 'contrast(1.1) brightness(1.1)',
-              width: 'calc(100% + 100px)',
-              marginLeft: '-25px', // Center slightly to compensate clipping
-            }}
-          />
-        </div>
+        <iframe 
+          key={zoomDelta}
+          title="Bandung Tax Map"
+          width="100%" 
+          height="100%" 
+          frameBorder="0" 
+          scrolling="no" 
+          marginHeight="0" 
+          marginWidth="0" 
+          src={bandungMapUrl}
+          className="absolute inset-0"
+          style={{ filter: 'contrast(1.1) brightness(1.1)' }}
+        />
+        
+        {/* Cover to hide native OSM zoom controls (top-right) */}
+        <div className="absolute top-0 right-0 w-16 h-24 bg-gradient-to-l from-slate-100 via-slate-100/95 to-transparent z-[5] pointer-events-none" />
         
         {/* Search & Left Controls Container */}
         <div className="absolute top-4 left-4 right-4 z-10 flex flex-col gap-3 pointer-events-none">
