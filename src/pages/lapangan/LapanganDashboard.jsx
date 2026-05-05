@@ -4,6 +4,7 @@ import { ClipboardList, MapPin, History, User, Search, Map, Bell, ArrowRight, Za
 import { motion } from 'framer-motion';
 import LapanganPendataan from './LapanganPendataan';
 import LapanganMap from './LapanganMap';
+import LapanganProfile from './LapanganProfile';
 import { useAuthStore } from '../../store/authStore';
 
 const LapanganDashboard = () => {
@@ -83,17 +84,8 @@ const LapanganDashboard = () => {
         return <LapanganPendataan />;
       case 'map':
         return <LapanganMap />;
-      default:
-        return (
-          <div className="flex flex-col items-center justify-center py-20 px-6 text-center">
-            <div className="w-24 h-24 bg-slate-50 rounded-full flex items-center justify-center text-slate-300 mb-6 shadow-inner">
-              <User size={48} />
-            </div>
-            <h3 className="text-xl font-black text-slate-900 mb-1">{user.nama}</h3>
-            <p className="text-xs font-bold text-slate-400 uppercase tracking-[2px] mb-2">{user.role}</p>
-            <p className="text-[10px] font-black text-blue-600 uppercase tracking-widest bg-blue-50 px-3 py-1 rounded-full">{user.wilayah || 'Semua Wilayah'}</p>
-          </div>
-        );
+      case 'profile':
+        return <LapanganProfile />;
     }
   };
 
