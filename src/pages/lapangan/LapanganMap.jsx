@@ -1,10 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { MapPin, Navigation, Layers, Search } from 'lucide-react';
 
 const LapanganMap = () => {
-  // Koordinat Bandung: -6.9175, 107.6191
-  const bandungMapUrl = "https://www.openstreetmap.org/export/embed.html?bbox=107.55, -6.95, 107.68, -6.88&layer=mapnik&marker=-6.9175,107.6191";
+  // Center coordinates: Bandung
+  const lat = -6.9175;
+  const lng = 107.6191;
+  
+  // State for zoom offset (smaller value = more zoomed in)
+  const [zoomDelta, setZoomDelta] = useState(0.03);
+
+  const handleZoomIn = () => {
+    setZoomDelta(prev => Math.max(prev / 1.5, 0.001));
+  };
+
+  const handleZoomOut = () => {
+    setZoomDelta(prev => Math.min(prev * 1.5, 0.5));
+  };
+
+  const handleReset = () => {
+    setZoomDelta(0.03);
+  };
+
+  // Generate dynamic bounding box based on zoomDelta
+  const bbox = `${lng - zoomDelta},${lat - zoomDelta},${lng + zoomDelta},${lat + zoomDelta}`;
+  const bandungMapUrl = `https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&layer=mapnik&marker=${lat},${lng}`;
 
   return (
     <div className="h-full flex flex-col">
@@ -16,6 +36,7 @@ const LapanganMap = () => {
       {/* Map Container */}
       <div className="flex-1 relative rounded-[40px] overflow-hidden border-4 border-white shadow-2xl bg-slate-200 min-h-[400px]">
         <iframe 
+          key={zoomDelta} // Force iframe reload on zoom change
           title="Bandung Tax Map"
           width="100%" 
           height="100%" 
@@ -41,19 +62,28 @@ const LapanganMap = () => {
           
           {/* Zoom & Action Buttons Below Search */}
           <div className="flex flex-col gap-2 w-10 pointer-events-auto">
-            <button className="w-10 h-10 bg-white rounded-xl shadow-lg flex items-center justify-center text-slate-900 font-black text-xl tap-highlight border border-slate-100">
+            <button 
+              onClick={handleZoomIn}
+              className="w-10 h-10 bg-white rounded-xl shadow-lg flex items-center justify-center text-slate-900 font-black text-xl tap-highlight border border-slate-100 hover:bg-slate-50 active:scale-95 transition-all"
+            >
               +
             </button>
-            <button className="w-10 h-10 bg-white rounded-xl shadow-lg flex items-center justify-center text-slate-900 font-black text-xl tap-highlight border border-slate-100">
+            <button 
+              onClick={handleZoomOut}
+              className="w-10 h-10 bg-white rounded-xl shadow-lg flex items-center justify-center text-slate-900 font-black text-xl tap-highlight border border-slate-100 hover:bg-slate-50 active:scale-95 transition-all"
+            >
               -
             </button>
             
             <div className="h-1" /> {/* Spacer */}
             
-            <button className="w-10 h-10 bg-white rounded-xl shadow-lg flex items-center justify-center text-slate-700 tap-highlight border border-slate-100">
+            <button className="w-10 h-10 bg-white rounded-xl shadow-lg flex items-center justify-center text-slate-700 tap-highlight border border-slate-100 hover:bg-slate-50">
               <Layers size={20} />
             </button>
-            <button className="w-10 h-10 bg-white rounded-xl shadow-lg flex items-center justify-center text-blue-600 tap-highlight border-2 border-blue-50">
+            <button 
+              onClick={handleReset}
+              className="w-10 h-10 bg-white rounded-xl shadow-lg flex items-center justify-center text-blue-600 tap-highlight border-2 border-blue-50 hover:bg-blue-50 active:scale-95 transition-all"
+            >
               <Navigation size={20} />
             </button>
           </div>
