@@ -27,25 +27,35 @@ const LapanganMap = () => {
           style={{ filter: 'contrast(1.1) brightness(1.1)' }}
         />
         
-        {/* Map Overlay Controls */}
-        <div className="absolute top-4 right-4 flex flex-col gap-2">
-          <button className="w-10 h-10 bg-white rounded-xl shadow-lg flex items-center justify-center text-slate-700 tap-highlight">
-            <Layers size={20} />
-          </button>
-          <button className="w-10 h-10 bg-white rounded-xl shadow-lg flex items-center justify-center text-blue-600 tap-highlight border-2 border-blue-50">
-            <Navigation size={20} />
-          </button>
-        </div>
-
-        {/* Search Overlay */}
-        <div className="absolute top-4 left-4 right-16">
-          <div className="bg-white/90 backdrop-blur-md p-3 rounded-2xl shadow-lg border border-white flex items-center gap-3">
+        {/* Search & Left Controls Container */}
+        <div className="absolute top-4 left-4 right-4 z-10 flex flex-col gap-3 pointer-events-none">
+          {/* Search Bar */}
+          <div className="bg-white/90 backdrop-blur-md p-3 rounded-2xl shadow-lg border border-white flex items-center gap-3 w-full pointer-events-auto">
             <Search size={18} className="text-slate-400" />
             <input 
               type="text" 
               placeholder="Cari koordinat atau wilayah..." 
               className="bg-transparent border-none text-xs font-black text-slate-700 outline-none w-full"
             />
+          </div>
+          
+          {/* Zoom & Action Buttons Below Search */}
+          <div className="flex flex-col gap-2 w-10 pointer-events-auto">
+            <button className="w-10 h-10 bg-white rounded-xl shadow-lg flex items-center justify-center text-slate-900 font-black text-xl tap-highlight border border-slate-100">
+              +
+            </button>
+            <button className="w-10 h-10 bg-white rounded-xl shadow-lg flex items-center justify-center text-slate-900 font-black text-xl tap-highlight border border-slate-100">
+              -
+            </button>
+            
+            <div className="h-1" /> {/* Spacer */}
+            
+            <button className="w-10 h-10 bg-white rounded-xl shadow-lg flex items-center justify-center text-slate-700 tap-highlight border border-slate-100">
+              <Layers size={20} />
+            </button>
+            <button className="w-10 h-10 bg-white rounded-xl shadow-lg flex items-center justify-center text-blue-600 tap-highlight border-2 border-blue-50">
+              <Navigation size={20} />
+            </button>
           </div>
         </div>
 
