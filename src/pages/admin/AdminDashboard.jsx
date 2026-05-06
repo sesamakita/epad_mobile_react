@@ -36,7 +36,7 @@ const AdminDashboard = () => {
       case 'home':
         return (
           <div className="space-y-6">
-            <header className="mb-2 ml-1">
+            <header className="mb-5 ml-1">
               <h2 className="text-2xl font-black text-slate-900 tracking-tight mb-1">Executive Hub</h2>
               <p className="text-sm font-bold text-slate-400">Monitoring sistem terintegrasi</p>
             </header>
