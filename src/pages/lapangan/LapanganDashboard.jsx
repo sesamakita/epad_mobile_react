@@ -5,10 +5,12 @@ import { motion } from 'framer-motion';
 import LapanganPendataan from './LapanganPendataan';
 import LapanganMap from './LapanganMap';
 import LapanganProfile from './LapanganProfile';
+import LapanganDetailTugas from './LapanganDetailTugas';
 import { useAuthStore } from '../../store/authStore';
 
 const LapanganDashboard = () => {
   const [activeTab, setActiveTab] = useState('tugas');
+  const [selectedTugas, setSelectedTugas] = useState(null);
   const { user } = useAuthStore();
 
   const menuItems = [
@@ -18,9 +20,29 @@ const LapanganDashboard = () => {
     { id: 'profile', label: 'Profil', icon: <User /> },
   ];
 
+  const tugasHariIni = [
+    { title: 'Hotel Grand Mentari', loc: 'Zona 1 - Pusat Kota', urgency: 'Tinggi', time: '09:00' },
+    { title: 'Resto Rasa Sayang', loc: 'Zona 2 - Pesisir', urgency: 'Normal', time: '13:30' },
+  ];
+
+  const handleTabChange = (tab) => {
+    setActiveTab(tab);
+    setSelectedTugas(null); // Reset detail when switching tabs
+  };
+
   const renderContent = () => {
     switch(activeTab) {
       case 'tugas':
+        // If a task is selected, show detail view
+        if (selectedTugas) {
+          return (
+            <LapanganDetailTugas 
+              tugas={selectedTugas} 
+              onBack={() => setSelectedTugas(null)} 
+            />
+          );
+        }
+
         return (
           <div className="space-y-6">
             <header className="mb-8 ml-1">
@@ -39,16 +61,14 @@ const LapanganDashboard = () => {
             </div>
             
             <div className="space-y-4">
-              {[
-                { title: 'Hotel Grand Mentari', loc: 'Zona 1 - Pusat Kota', urgency: 'Tinggi', time: '09:00' },
-                { title: 'Resto Rasa Sayang', loc: 'Zona 2 - Pesisir', urgency: 'Normal', time: '13:30' },
-              ].map((t, i) => (
+              {tugasHariIni.map((t, i) => (
                 <motion.div 
                   key={i} 
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.1 }}
-                  className="glass-panel p-5 rounded-[32px] border border-white relative overflow-hidden tap-highlight shadow-sm"
+                  onClick={() => setSelectedTugas(t)}
+                  className="glass-panel p-5 rounded-[32px] border border-white relative overflow-hidden tap-highlight shadow-sm cursor-pointer hover:shadow-md active:scale-[0.98] transition-all"
                 >
                   <div className={`absolute top-0 left-0 w-1.5 h-full ${t.urgency === 'Tinggi' ? 'bg-rose-500' : 'bg-blue-500'}`} />
                   <div className="flex justify-between items-start mb-4">
@@ -71,9 +91,9 @@ const LapanganDashboard = () => {
                       <Bell size={12} className="text-slate-300" />
                       <span className="text-[10px] font-bold text-slate-500 uppercase tracking-tighter">Deadline: {t.time} WIB</span>
                     </div>
-                    <button className="flex items-center gap-2 text-[10px] font-black text-blue-600 uppercase tracking-widest">
+                    <span className="flex items-center gap-2 text-[10px] font-black text-blue-600 uppercase tracking-widest">
                       Detail Tugas <ArrowRight size={14} />
-                    </button>
+                    </span>
                   </div>
                 </motion.div>
               ))}
@@ -90,7 +110,7 @@ const LapanganDashboard = () => {
   };
 
   return (
-    <MobileLayout activeTab={activeTab} onTabChange={setActiveTab} menuItems={menuItems} roleName="Petugas Lapangan" role="lapangan">
+    <MobileLayout activeTab={activeTab} onTabChange={handleTabChange} menuItems={menuItems} roleName="Petugas Lapangan" role="lapangan">
       {renderContent()}
     </MobileLayout>
   );
