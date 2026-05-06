@@ -5,10 +5,12 @@ import { motion } from 'framer-motion';
 import KasirPembayaran from './KasirPembayaran';
 import KasirRekap from './KasirRekap';
 import KasirProfile from './KasirProfile';
+import KasirInputManual from './KasirInputManual';
 import { useAuthStore } from '../../store/authStore';
 
 const KasirDashboard = () => {
   const [activeTab, setActiveTab] = useState('scan');
+  const [showInputManual, setShowInputManual] = useState(false);
   const { user } = useAuthStore();
 
   const menuItems = [
@@ -18,9 +20,19 @@ const KasirDashboard = () => {
     { id: 'set', label: 'Profil', icon: <User /> },
   ];
 
+  const handleTabChange = (tab) => {
+    setActiveTab(tab);
+    setShowInputManual(false);
+  };
+
   const renderContent = () => {
     switch(activeTab) {
       case 'scan':
+        // Show input manual view
+        if (showInputManual) {
+          return <KasirInputManual onBack={() => setShowInputManual(false)} />;
+        }
+
         return (
           <div className="space-y-8">
             <header className="mb-8 ml-1">
@@ -53,7 +65,10 @@ const KasirDashboard = () => {
                 <QrCode size={20} />
                 AKTIFKAN KAMERA
               </button>
-              <button className="w-full py-5 bg-white text-slate-900 border border-slate-200 rounded-[24px] font-black text-sm uppercase tracking-widest flex items-center justify-center gap-3 tap-highlight shadow-sm">
+              <button 
+                onClick={() => setShowInputManual(true)}
+                className="w-full py-5 bg-white text-slate-900 border border-slate-200 rounded-[24px] font-black text-sm uppercase tracking-widest flex items-center justify-center gap-3 tap-highlight shadow-sm hover:bg-slate-50 active:scale-[0.98] transition-all"
+              >
                 <Banknote size={20} />
                 INPUT KODE MANUAL
               </button>
@@ -80,11 +95,10 @@ const KasirDashboard = () => {
   };
 
   return (
-    <MobileLayout activeTab={activeTab} onTabChange={setActiveTab} menuItems={menuItems} roleName="Loket Kasir" role="kasir">
+    <MobileLayout activeTab={activeTab} onTabChange={handleTabChange} menuItems={menuItems} roleName="Loket Kasir" role="kasir">
       {renderContent()}
     </MobileLayout>
   );
 };
 
 export default KasirDashboard;
-
