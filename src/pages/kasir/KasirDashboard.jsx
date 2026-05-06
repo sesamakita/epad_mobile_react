@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import MobileLayout from '../../components/MobileLayout';
-import { QrCode, Banknote, History, BarChart3, ScanLine, Wallet, ShieldCheck } from 'lucide-react';
+import { QrCode, Banknote, History, BarChart3, ScanLine, Wallet, ShieldCheck, User } from 'lucide-react';
 import { motion } from 'framer-motion';
 import KasirPembayaran from './KasirPembayaran';
 import KasirRekap from './KasirRekap';
+import KasirProfile from './KasirProfile';
 import { useAuthStore } from '../../store/authStore';
 
 const KasirDashboard = () => {
@@ -14,7 +15,7 @@ const KasirDashboard = () => {
     { id: 'scan', label: 'Scan', icon: <QrCode /> },
     { id: 'history', label: 'Transaksi', icon: <History /> },
     { id: 'recap', label: 'Rekap', icon: <BarChart3 /> },
-    { id: 'set', label: 'Profil', icon: <Wallet /> },
+    { id: 'set', label: 'Profil', icon: <User /> },
   ];
 
   const renderContent = () => {
@@ -73,19 +74,8 @@ const KasirDashboard = () => {
         return <KasirPembayaran />;
       case 'recap':
         return <KasirRekap />;
-      default:
-        return (
-          <div className="flex flex-col items-center justify-center py-20 px-6 text-center">
-            <div className="w-24 h-24 bg-slate-50 rounded-full flex items-center justify-center text-slate-300 mb-6 shadow-inner">
-              <Wallet size={48} />
-            </div>
-            <h3 className="text-xl font-black text-slate-900 mb-1">{user.nama}</h3>
-            <p className="text-xs font-bold text-slate-400 uppercase tracking-[2px] mb-8">{user.role}</p>
-            <button className="w-full py-4 bg-rose-50 text-rose-500 rounded-2xl font-black text-xs uppercase tracking-widest border border-rose-100">
-              KELUAR SISTEM
-            </button>
-          </div>
-        );
+      case 'set':
+        return <KasirProfile />;
     }
   };
 
