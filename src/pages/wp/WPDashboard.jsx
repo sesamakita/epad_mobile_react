@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 
 import WPTagihan from './WPTagihan';
 import WPRiwayat from './WPRiwayat';
+import WPProfile from './WPProfile';
 import { useAuthStore } from '../../store/authStore';
 import { mockKetetapan } from '../../data/mockData';
 
@@ -114,27 +115,7 @@ const WPDashboard = () => {
       case 'history':
         return <WPRiwayat userId={user.id} />;
       case 'profile':
-        return (
-          <div className="flex flex-col items-center justify-center py-20 px-6 text-center">
-            <div className="w-24 h-24 bg-blue-50 rounded-full flex items-center justify-center text-blue-600 mb-6 shadow-inner">
-              <User size={48} />
-            </div>
-            <h3 className="text-xl font-black text-slate-900 mb-1">{user.nama}</h3>
-            <p className="text-xs font-bold text-slate-400 uppercase tracking-[2px] mb-8">{user.role}</p>
-            <div className="w-full space-y-3">
-              <div className="glass-panel p-4 rounded-2xl flex items-center justify-between text-left">
-                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Email</span>
-                <span className="text-xs font-black text-slate-700">{user.email}</span>
-              </div>
-              {user.npwpd && (
-                <div className="glass-panel p-4 rounded-2xl flex items-center justify-between text-left">
-                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">NPWPD</span>
-                  <span className="text-xs font-black text-slate-700">{user.npwpd}</span>
-                </div>
-              )}
-            </div>
-          </div>
-        );
+        return <WPProfile />;
       default:
         return (
           <div className="flex flex-col items-center justify-center py-20 px-6 text-center">
@@ -154,7 +135,6 @@ const WPDashboard = () => {
     </MobileLayout>
   );
 };
-
 
 export default WPDashboard;
 
