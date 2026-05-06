@@ -97,7 +97,7 @@ const LapanganDetailTugas = ({ tugas, onBack }) => {
       <motion.div 
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
-        className="flex items-center gap-3 mb-2"
+        className="flex items-center gap-3 mb-4"
       >
         <button 
           onClick={onBack}
